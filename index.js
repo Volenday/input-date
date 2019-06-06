@@ -5,6 +5,8 @@ import TimePickerPanel from 'rc-time-picker/lib/Panel';
 import moment from 'moment';
 
 import 'rc-calendar/assets/index.css';
+import 'rc-time-picker/assets/index.css';
+import './styles.css';
 
 export default class InputDate extends Component {
 	state = {
