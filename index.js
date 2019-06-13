@@ -3,6 +3,7 @@ import Calendar from 'rc-calendar';
 import DatePicker from 'rc-calendar/lib/Picker';
 import TimePickerPanel from 'rc-time-picker/lib/Panel';
 import moment from 'moment';
+import { Pane, Popover, Position } from 'evergreen-ui';
 
 import 'rc-calendar/assets/index.css';
 import 'rc-time-picker/assets/index.css';
@@ -75,8 +76,6 @@ export default class InputDate extends Component {
 	}
 
 	renderPopover = () => {
-		const { id, label = '', historyTrackValue = '', onHistoryTrackChange } = this.props;
-
 		return (
 			<Popover
 				content={
