@@ -76,6 +76,8 @@ export default class InputDate extends Component {
 	}
 
 	renderPopover = () => {
+		const { id, label, required } = this.props;
+
 		return (
 			<Popover
 				content={
@@ -88,7 +90,10 @@ export default class InputDate extends Component {
 						justifyContent="center"
 						position={Position.TOP_RIGHT}
 					>
-						{this.renderInput()}
+						<div class="form-group">
+							<label for={id}>{required ? `*${label}` : label}</label>
+							{this.renderInput()}
+						</div>
 					</Pane>
 				}
 				statelessProps={{ zIndex: 99 }}
