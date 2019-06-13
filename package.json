@@ -10,6 +10,7 @@
 	},
 	"main": "dist/index.min.js",
 	"dependencies": {
+		"evergreen-ui": "^4.17.0",
 		"moment": "~2.24.0",
 		"rc-calendar": "~9.11.0",
 		"rc-time-picker": "~3.6.6",
