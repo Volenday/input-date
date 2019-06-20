@@ -100,7 +100,7 @@ export default class InputDate extends Component {
 			>
 				{({ getRef, toggle }) => {
 					return (
-						<span class="pull-right text-warning" ref={getRef}>
+						<span class="float-right text-warning" ref={getRef}>
 							<i onClick={toggle} style={{ cursor: 'pointer' }} class="fa fa-exclamation-circle" aria-hidden="true"></i>
 						</span>
 					);
@@ -116,7 +116,7 @@ export default class InputDate extends Component {
 			if (historyTrack) {
 				return (
 					<div className="form-group">
-						<span class="pull-left"><label for={id}>{required ? `*${label}` : label}</label></span>
+						<span class="float-left"><label for={id}>{required ? `*${label}` : label}</label></span>
 						{this.renderPopover()}
 						{this.renderInput()}
 					</div>
