@@ -11,7 +11,8 @@ import './styles.css';
 
 export default class InputDate extends Component {
 	state = {
-		format: 'MMMM DD, YYYY hh:mm A'
+		format: 'MMMM DD, YYYY hh:mm A',
+		hasChange: false
 	};
 
 	getFormat(withTime) {
@@ -56,7 +57,10 @@ export default class InputDate extends Component {
 				disabled={disabled}
 				calendar={calendar}
 				value={moment(value).isValid() ? moment(value) : null}
-				onChange={e => onChange(id, e ? e.toISOString() : e)}>
+				onChange={e => {
+					onChange(id, e ? e.toISOString() : e);
+					this.setState({ hasChange: true });
+				}}>
 				{({ value }) => {
 					return (
 						<input
@@ -109,7 +113,8 @@ export default class InputDate extends Component {
 		);
 	};
 
-	render() {
+	render() { 
+		const { hasChange } = this.state;
 		const { id, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
 
 		if (withLabel) {
@@ -117,7 +122,7 @@ export default class InputDate extends Component {
 				return (
 					<div className="form-group">
 						<span class="float-left"><label for={id}>{required ? `*${label}` : label}</label></span>
-						{this.renderPopover()}
+						{hasChange && this.renderPopover()}
 						{this.renderInput()}
 					</div>
 				);
@@ -133,7 +138,7 @@ export default class InputDate extends Component {
 			if (historyTrack) {
 				return (
 					<div class="form-group">
-						{this.renderPopover()}
+						{hasChange && this.renderPopover()}
 						{this.renderInput()}
 					</div>
 				);
