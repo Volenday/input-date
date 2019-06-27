@@ -1,12 +1,11 @@
 const webpack = require('webpack');
-const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
 	mode: 'production',
 	context: __dirname,
 	devtool: false,
 	entry: {
-		index: ['@babel/polyfill/noConflict', './index.js']
+		index: ['core-js/stable', 'regenerator-runtime/runtime', './index.js']
 	},
 	module: {
 		rules: [
@@ -53,17 +52,6 @@ module.exports = {
 		chunkFilename: '[name].[chunkhash].chunk.min.js',
 		libraryTarget: 'commonjs2'
 	},
-	plugins: [
-		new BundleAnalyzerPlugin(),
-		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-		new webpack.optimize.AggressiveMergingPlugin(),
-		new webpack.optimize.OccurrenceOrderPlugin(),
-		new webpack.DefinePlugin({
-			'process.env': {
-				NODE_ENV: JSON.stringify('production')
-			}
-		})
-	],
 	externals: {
 		lodash: 'commonjs2 lodash',
 		moment: 'commonjs2 moment',
@@ -72,5 +60,15 @@ module.exports = {
 		'rc-calendar': 'commonjs2 rc-calendar',
 		'rc-time-picker': 'commonjs2 rc-time-picker',
 		'react-dom': 'commonjs react-dom'
-	}
+	},
+	plugins: [
+		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+		new webpack.optimize.AggressiveMergingPlugin(),
+		new webpack.optimize.OccurrenceOrderPlugin(),
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
+		})
+	]
 };
