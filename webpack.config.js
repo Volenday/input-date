@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
 	mode: 'production',
 	context: __dirname,
@@ -54,6 +54,8 @@ module.exports = {
 		libraryTarget: 'commonjs2'
 	},
 	plugins: [
+		new BundleAnalyzerPlugin(),
+		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
 		new webpack.optimize.AggressiveMergingPlugin(),
 		new webpack.optimize.OccurrenceOrderPlugin(),
 		new webpack.DefinePlugin({
@@ -61,5 +63,14 @@ module.exports = {
 				NODE_ENV: JSON.stringify('production')
 			}
 		})
-	]
+	],
+	externals: {
+		lodash: 'commonjs2 lodash',
+		moment: 'commonjs2 moment',
+		react: 'commonjs2 react',
+		'evergreen-ui': 'commonjs2 evergreen-ui',
+		'rc-calendar': 'commonjs2 rc-calendar',
+		'rc-time-picker': 'commonjs2 rc-time-picker',
+		'react-dom': 'commonjs react-dom'
+	}
 };
