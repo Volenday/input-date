@@ -5,17 +5,27 @@
 	"license": "MIT",
 	"author": "Jerome Miranda <jerome.m.miranda@gmail.com>",
 	"scripts": {
+		"dev": "webpack --progress --watch",
 		"build": "webpack --progress -p",
 		"prepublishOnly": "webpack --progress -p"
 	},
 	"main": "dist/index.min.js",
-	"dependencies": {
+	"peerDependencies": {
 		"evergreen-ui": "^4.17.0",
 		"moment": "~2.24.0",
 		"rc-calendar": "~9.11.0",
 		"rc-time-picker": "~3.6.6",
 		"react": "~16.8.6",
 		"react-dom": "~16.8.6"
+	},
+	"dependencies": {
+		"evergreen-ui": "^4.17.0",
+		"moment": "~2.24.0",
+		"rc-calendar": "~9.11.0",
+		"rc-time-picker": "~3.6.6",
+		"react": "~16.8.6",
+		"react-dom": "~16.8.6",
+		"webpack": "~4.34.0"
 	},
 	"devDependencies": {
 		"@babel/core": "~7.4.5",
@@ -47,7 +57,7 @@
 		"node-sass": "~4.12.0",
 		"sass-loader": "~7.1.0",
 		"style-loader": "~0.23.1",
-		"webpack": "~4.34.0",
+		"webpack-bundle-analyzer": "^3.3.2",
 		"webpack-cli": "~3.3.4"
 	}
 }

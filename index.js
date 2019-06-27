@@ -92,28 +92,31 @@ export default class InputDate extends Component {
 						alignItems="center"
 						flexDirection="column"
 						justifyContent="center"
-						position={Position.TOP_RIGHT}
-					>
+						position={Position.TOP_RIGHT}>
 						<div class="form-group">
 							<label for={id}>{required ? `*${label}` : label}</label>
 							{this.renderInput()}
 						</div>
 					</Pane>
 				}
-				statelessProps={{ zIndex: 99 }}
-			>
+				statelessProps={{ zIndex: 99 }}>
 				{({ getRef, toggle }) => {
 					return (
 						<span class="float-right text-warning" ref={getRef}>
-							<i onClick={toggle} style={{ cursor: 'pointer' }} class="fa fa-exclamation-circle" aria-hidden="true"></i>
+							<i
+								onClick={toggle}
+								style={{ cursor: 'pointer' }}
+								class="fa fa-exclamation-circle"
+								aria-hidden="true"
+							/>
 						</span>
 					);
-				}}					
+				}}
 			</Popover>
 		);
 	};
 
-	render() { 
+	render() {
 		const { hasChange } = this.state;
 		const { id, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
 
@@ -121,13 +124,15 @@ export default class InputDate extends Component {
 			if (historyTrack) {
 				return (
 					<div className="form-group">
-						<span class="float-left"><label for={id}>{required ? `*${label}` : label}</label></span>
+						<span class="float-left">
+							<label for={id}>{required ? `*${label}` : label}</label>
+						</span>
 						{hasChange && this.renderPopover()}
 						{this.renderInput()}
 					</div>
 				);
 			}
-			
+
 			return (
 				<div className="form-group">
 					<label for={id}>{required ? `*${label}` : label}</label>
