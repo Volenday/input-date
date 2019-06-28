@@ -49,6 +49,7 @@ export default class InputDate extends Component {
 				required={required}
 				style={styles}
 				format="MMMM DD, YYYY hh:mm A"
+				size="large"
 			/>
 		);
 	}
