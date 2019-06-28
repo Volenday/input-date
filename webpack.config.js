@@ -53,12 +53,10 @@ module.exports = {
 		libraryTarget: 'commonjs2'
 	},
 	externals: {
-		lodash: 'commonjs2 lodash',
 		moment: 'commonjs2 moment',
 		react: 'commonjs2 react',
-		'evergreen-ui': 'commonjs2 evergreen-ui',
+		antd: 'commonjs2 antd',
 		'rc-calendar': 'commonjs2 rc-calendar',
-		'rc-time-picker': 'commonjs2 rc-time-picker',
 		'react-dom': 'commonjs react-dom'
 	},
 	plugins: [

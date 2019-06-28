@@ -1,6 +1,6 @@
 {
 	"name": "@volenday/input-date",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"private": false,
 	"license": "MIT",
 	"author": "Jerome Miranda <jerome.m.miranda@gmail.com>",
@@ -11,18 +11,16 @@
 	},
 	"main": "dist/index.min.js",
 	"peerDependencies": {
-		"evergreen-ui": "^4.17.0",
+		"antd": "^3.19.8",
 		"moment": "~2.24.0",
 		"rc-calendar": "~9.11.0",
-		"rc-time-picker": "~3.6.6",
 		"react": "~16.8.6",
 		"react-dom": "~16.8.6"
 	},
 	"dependencies": {
-		"evergreen-ui": "^4.17.0",
+		"antd": "^3.19.8",
 		"moment": "~2.24.0",
 		"rc-calendar": "~9.11.0",
-		"rc-time-picker": "~3.6.6",
 		"react": "~16.8.6",
 		"react-dom": "~16.8.6",
 		"webpack": "~4.34.0"

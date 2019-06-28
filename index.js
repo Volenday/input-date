@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import Calendar from 'rc-calendar';
-import DatePicker from 'rc-calendar/lib/Picker';
-import TimePickerPanel from 'rc-time-picker/lib/Panel';
 import moment from 'moment';
-import { Pane, Popover, Position } from 'evergreen-ui';
+
+// ant design
+import Button from 'antd/es/button';
+import Popover from 'antd/es/popover';
+import DatePicker from 'antd/es/date-picker';
 
 import 'rc-calendar/assets/index.css';
-import 'rc-time-picker/assets/index.css';
 import './styles.css';
 
 export default class InputDate extends Component {
 	state = {
 		format: 'MMMM DD, YYYY hh:mm A',
-		hasChange: false
+		hasChange: false,
+		isPopoverVisible: false
 	};
 
 	getFormat(withTime) {
@@ -33,85 +34,49 @@ export default class InputDate extends Component {
 			styles = {}
 		} = this.props;
 
-		const timePicker = (
-			<TimePickerPanel
-				format="hh:mm A"
-				showSecond={false}
-				use12Hours={true}
-				defaultValue={moment('00:00:00 am', 'hh:mm:ss A')}
-			/>
-		);
-
-		const calendar = (
-			<Calendar
-				style={{ zIndex: 9999 }}
-				dateInputPlaceholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
-				formatter={this.getFormat(withTime)}
-				timePicker={withTime ? timePicker : null}
-				showDateInput={false}
-			/>
-		);
-
 		return (
-			<DatePicker
+			<DatePicker 
+				showTime={{ format: 'hh:mm A' }}
+				allowClear
 				disabled={disabled}
-				calendar={calendar}
 				value={moment(value).isValid() ? moment(value) : null}
-				onChange={e => {
-					onChange(id, e ? e.toISOString() : e);
+				onChange={value => {
+					onChange(id, value ? value.toISOString() : value);
 					this.setState({ hasChange: true });
-				}}>
-				{({ value }) => {
-					return (
-						<input
-							placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
-							disabled={disabled}
-							readOnly
-							className="ant-calendar-picker-input ant-input form-control"
-							name={id}
-							value={value ? value.format(this.getFormat(withTime)) : ''}
-							required={required}
-							style={styles}
-						/>
-					);
 				}}
-			</DatePicker>
+				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
+				name={id}
+				required={required}
+				style={styles}
+				format="MMMM DD, YYYY hh:mm A"
+			/>
 		);
 	}
 
+	handlePopoverVisible = visible => {
+		this.setState({ isPopoverVisible: visible });
+	};
+
 	renderPopover = () => {
+		const { isPopoverVisible } = this.state;
 		const { id, label, required } = this.props;
 
 		return (
 			<Popover
 				content={
-					<Pane
-						width={240}
-						height={240}
-						display="flex"
-						alignItems="center"
-						flexDirection="column"
-						justifyContent="center"
-						position={Position.TOP_RIGHT}>
-						<div class="form-group">
-							<label for={id}>{required ? `*${label}` : label}</label>
-							{this.renderInput()}
-						</div>
-					</Pane>
+					<div class="form-group">
+						<label for={id}>{required ? `*${label}` : label}</label>
+						{this.renderInput()}
+					</div>
 				}
-				statelessProps={{ zIndex: 99 }}>
-				{({ getRef, toggle }) => {
-					return (
-						<span class="float-right text-warning" ref={getRef}>
-							<i
-								onClick={toggle}
-								style={{ cursor: 'pointer' }}
-								class="fa fa-exclamation-circle"
-								aria-hidden="true"
-							/>
-						</span>
-					);
-				}}
+				trigger="click"
+				title="History Track"
+				visible={isPopoverVisible}
+				onVisibleChange={this.handlePopoverVisible}
+			>
+				<span class="float-right">
+					<Button type="link" shape="circle-outline" icon="warning" size="small" style={{ color: '#ffc107' }} />
+				</span>
 			</Popover>
 		);
 	};
@@ -128,6 +93,7 @@ export default class InputDate extends Component {
 							<label for={id}>{required ? `*${label}` : label}</label>
 						</span>
 						{hasChange && this.renderPopover()}
+						<br />
 						{this.renderInput()}
 					</div>
 				);
@@ -136,6 +102,7 @@ export default class InputDate extends Component {
 			return (
 				<div className="form-group">
 					<label for={id}>{required ? `*${label}` : label}</label>
+					<br />
 					{this.renderInput()}
 				</div>
 			);
@@ -144,6 +111,7 @@ export default class InputDate extends Component {
 				return (
 					<div class="form-group">
 						{hasChange && this.renderPopover()}
+						<br />
 						{this.renderInput()}
 					</div>
 				);
