@@ -35,7 +35,7 @@ export default class InputDate extends Component {
 		} = this.props;
 
 		return (
-			<DatePicker 
+			<DatePicker
 				showTime={{ format: 'hh:mm A' }}
 				allowClear
 				disabled={disabled}
@@ -73,10 +73,15 @@ export default class InputDate extends Component {
 				trigger="click"
 				title="History Track"
 				visible={isPopoverVisible}
-				onVisibleChange={this.handlePopoverVisible}
-			>
+				onVisibleChange={this.handlePopoverVisible}>
 				<span class="float-right">
-					<Button type="link" shape="circle-outline" icon="warning" size="small" style={{ color: '#ffc107' }} />
+					<Button
+						type="link"
+						shape="circle-outline"
+						icon="warning"
+						size="small"
+						style={{ color: '#ffc107' }}
+					/>
 				</span>
 			</Popover>
 		);
@@ -84,7 +89,7 @@ export default class InputDate extends Component {
 
 	render() {
 		const { hasChange } = this.state;
-		const { id, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
+		const { id, action, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
 
 		if (withLabel) {
 			if (historyTrack) {
@@ -93,7 +98,7 @@ export default class InputDate extends Component {
 						<span class="float-left">
 							<label for={id}>{required ? `*${label}` : label}</label>
 						</span>
-						{hasChange && this.renderPopover()}
+						{hasChange && action !== 'add' && this.renderPopover()}
 						<br />
 						{this.renderInput()}
 					</div>
@@ -111,7 +116,7 @@ export default class InputDate extends Component {
 			if (historyTrack) {
 				return (
 					<div class="form-group">
-						{hasChange && this.renderPopover()}
+						{hasChange && action !== 'add' && this.renderPopover()}
 						<br />
 						{this.renderInput()}
 					</div>
