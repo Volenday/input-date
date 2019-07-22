@@ -31,7 +31,8 @@ export default class InputDate extends Component {
 			required = false,
 			value = '',
 			withTime = false,
-			styles = {}
+			styles = {},
+			onOk = null
 		} = this.props;
 
 		return (
@@ -44,6 +45,7 @@ export default class InputDate extends Component {
 					onChange(id, value ? value.toISOString() : value);
 					this.setState({ hasChange: true });
 				}}
+				onOk={onOk}
 				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
 				name={id}
 				required={required}
