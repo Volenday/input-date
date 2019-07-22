@@ -1,6 +1,6 @@
 {
 	"name": "@volenday/input-date",
-	"version": "0.0.14",
+	"version": "0.1.0",
 	"private": false,
 	"license": "MIT",
 	"author": "Jerome Miranda <jerome.m.miranda@gmail.com>",
@@ -11,7 +11,7 @@
 	},
 	"main": "dist/index.min.js",
 	"peerDependencies": {
-		"antd": "^3.19.8",
+		"antd": "~3.20.5",
 		"moment": "~2.24.0",
 		"rc-calendar": "~9.11.0",
 		"react": "~16.8.6",
@@ -20,7 +20,7 @@
 	"dependencies": {
 		"antd": "~3.20.5",
 		"moment": "~2.24.0",
-		"rc-calendar": "~9.15.4",
+		"rc-calendar": "~9.11.0",
 		"react": "~16.8.6",
 		"react-dom": "~16.8.6",
 		"webpack": "~4.36.1"
