@@ -25,6 +25,7 @@ export default class InputDate extends Component {
 		const {
 			disabled = false,
 			id,
+			action,
 			label = '',
 			onChange,
 			placeholder = '',
@@ -43,7 +44,7 @@ export default class InputDate extends Component {
 				value={moment(value).isValid() ? moment(value) : null}
 				onChange={value => {
 					onChange(id, value ? value.toISOString() : value);
-					this.setState({ hasChange: true });
+					this.setState({ hasChange: action === 'add' ? false : true });
 				}}
 				onOk={onOk}
 				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
