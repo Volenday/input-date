@@ -38,7 +38,7 @@ export default class InputDate extends Component {
 
 		return (
 			<DatePicker
-				showTime={{ format: 'hh:mm A' }}
+				showTime={withTime ? { format: 'hh:mm A' } : false}
 				allowClear
 				disabled={disabled}
 				value={moment(value).isValid() ? moment(value) : null}
@@ -51,7 +51,7 @@ export default class InputDate extends Component {
 				name={id}
 				required={required}
 				style={styles}
-				format="MMMM DD, YYYY hh:mm A"
+				format={this.getFormat(withTime)}
 				size="large"
 			/>
 		);
