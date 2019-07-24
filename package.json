@@ -1,6 +1,6 @@
 {
 	"name": "@volenday/input-date",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": false,
 	"license": "MIT",
 	"author": "Jerome Miranda <jerome.m.miranda@gmail.com>",
@@ -23,7 +23,7 @@
 		"rc-calendar": "~9.11.0",
 		"react": "~16.8.6",
 		"react-dom": "~16.8.6",
-		"webpack": "~4.36.1"
+		"webpack": "~4.37.0"
 	},
 	"devDependencies": {
 		"@babel/core": "~7.5.5",
