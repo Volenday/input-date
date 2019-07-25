@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 // ant design
 import Button from 'antd/es/button';
@@ -26,6 +26,7 @@ export default class InputDate extends Component {
 			disabled = false,
 			id,
 			action,
+			timezone = 'auto',
 			label = '',
 			onChange,
 			placeholder = '',
@@ -41,9 +42,19 @@ export default class InputDate extends Component {
 				showTime={withTime ? { format: 'hh:mm A' } : false}
 				allowClear
 				disabled={disabled}
-				value={moment(value).isValid() ? moment(value) : null}
+				value={moment(value).isValid ? moment(value) : null}
 				onChange={value => {
-					onChange(id, value ? value.toISOString() : value);
+					onChange(
+						id,
+						value
+							? timezone === 'auto'
+								? value.format()
+								: value
+										.utc()
+										.tz(timezone)
+										.format()
+							: value
+					);
 					this.setState({ hasChange: action === 'add' ? false : true });
 				}}
 				onOk={onOk}

@@ -53,9 +53,9 @@ module.exports = {
 		libraryTarget: 'commonjs2'
 	},
 	externals: {
-		moment: 'commonjs2 moment',
 		react: 'commonjs2 react',
 		antd: 'commonjs2 antd',
+		'moment-timezone': 'commonjs2 moment-timezone',
 		'rc-calendar': 'commonjs2 rc-calendar',
 		'react-dom': 'commonjs react-dom'
 	},
