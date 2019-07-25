@@ -42,7 +42,7 @@ export default class InputDate extends Component {
 				showTime={withTime ? { format: 'hh:mm A' } : false}
 				allowClear
 				disabled={disabled}
-				value={moment(value).isValid ? moment(value) : null}
+				value={moment(value).isValid() ? moment(value) : null}
 				onChange={value => {
 					onChange(
 						id,
