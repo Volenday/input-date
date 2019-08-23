@@ -1,3 +1,11 @@
+.ant-form-item-label {
+    line-height: 1 !important;
+}
+
+.ant-form-item-label label {
+    margin: 0px !important
+}
+
 .rc-calendar-picker {
     z-index: 1060 !important;
 }

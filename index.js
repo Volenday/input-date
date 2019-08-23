@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
-
-// ant design
-import Button from 'antd/es/button';
-import Popover from 'antd/es/popover';
-import DatePicker from 'antd/es/date-picker';
+import validate from 'validate.js';
+import { Button, DatePicker, Form, Popover } from 'antd';
 
 import 'rc-calendar/assets/index.css';
 import './styles.css';
 
 export default class InputDate extends Component {
 	state = {
+		errors: [],
 		format: 'MMMM DD, YYYY hh:mm A',
 		hasChange: false,
 		isPopoverVisible: false
@@ -21,16 +19,54 @@ export default class InputDate extends Component {
 		return withTime ? format : 'MMMM DD, YYYY';
 	}
 
+	onChange = async value => {
+		const { action, id, onChange, onValidate, timezone = 'auto' } = this.props;
+
+		value = value
+			? timezone === 'auto'
+				? value.format()
+				: value
+						.utc()
+						.tz(timezone)
+						.format()
+			: value;
+
+		onChange(id, value);
+		const errors = this.validate(value);
+		await this.setState({ errors, hasChange: action === 'add' ? false : true });
+		if (onValidate) onValidate(id, errors);
+	};
+
+	validate = value => {
+		const { id, required = false } = this.props;
+
+		validate.extend(validate.validators.datetime, {
+			parse: value => +moment.utc(value),
+			format: (value, options) => {
+				const format = options.dateOnly ? 'YYYY-MM-DD' : 'YYYY-MM-DD hh:mm:ss';
+				return moment.utc(value).format(format);
+			}
+		});
+
+		const format = 'YYYY-MM-DD hh:mm:ss';
+		value = moment(value).format(format);
+		const constraints = {
+			[id]: {
+				datetime: true,
+				presence: { allowEmpty: !required }
+			}
+		};
+
+		const errors = validate({ [id]: value }, constraints);
+		return errors ? errors[id] : [];
+	};
+
 	renderInput() {
 		const {
 			disabled = false,
 			id,
-			action,
-			timezone = 'auto',
 			label = '',
-			onChange,
 			placeholder = '',
-			required = false,
 			value = '',
 			withTime = false,
 			styles = {},
@@ -39,31 +75,16 @@ export default class InputDate extends Component {
 
 		return (
 			<DatePicker
-				showTime={withTime ? { format: 'hh:mm A' } : false}
 				allowClear
 				disabled={disabled}
-				value={moment(value).isValid() ? moment(value) : null}
-				onChange={value => {
-					onChange(
-						id,
-						value
-							? timezone === 'auto'
-								? value.format()
-								: value
-										.utc()
-										.tz(timezone)
-										.format()
-							: value
-					);
-					this.setState({ hasChange: action === 'add' ? false : true });
-				}}
+				format={this.getFormat(withTime)}
+				name={id}
+				onChange={e => this.onChange(e)}
 				onOk={onOk}
 				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
-				name={id}
-				required={required}
+				showTime={withTime ? { format: 'hh:mm A' } : false}
 				style={styles}
-				format={this.getFormat(withTime)}
-				size="large"
+				value={moment(value).isValid() ? moment(value) : null}
 			/>
 		);
 	}
@@ -102,44 +123,22 @@ export default class InputDate extends Component {
 	};
 
 	render() {
-		const { hasChange } = this.state;
-		const { id, action, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
+		const { errors, hasChange } = this.state;
+		const { action, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
 
-		if (withLabel) {
-			if (historyTrack) {
-				return (
-					<div className="form-group">
-						<span class="float-left">
-							<label for={id}>{required ? `*${label}` : label}</label>
-						</span>
-						{hasChange && action !== 'add' && this.renderPopover()}
-						<br />
-						{this.renderInput()}
-					</div>
-				);
-			}
+		const formItemCommonProps = {
+			colon: false,
+			help: errors.length != 0 ? errors[0] : '',
+			label: withLabel ? label : false,
+			required,
+			validateStatus: errors.length != 0 ? 'error' : 'success'
+		};
 
-			return (
-				<div className="form-group">
-					<label for={id}>{required ? `*${label}` : label}</label>
-					<br />
-					{this.renderInput()}
-				</div>
-			);
-		} else {
-			if (historyTrack) {
-				return (
-					<div class="form-group">
-						{hasChange && action !== 'add' && this.renderPopover()}
-						<br />
-						{this.renderInput()}
-					</div>
-				);
-			}
-
-			return this.renderInput();
-		}
-
-		return null;
+		return (
+			<Form.Item {...formItemCommonProps}>
+				{historyTrack && hasChange && action !== 'add' && this.renderPopover()}
+				{this.renderInput()}
+			</Form.Item>
+		);
 	}
 }
