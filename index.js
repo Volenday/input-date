@@ -3,7 +3,6 @@ import moment from 'moment-timezone';
 import validate from 'validate.js';
 import { Button, DatePicker, Form, Popover } from 'antd';
 
-import 'rc-calendar/assets/index.css';
 import './styles.css';
 
 export default class InputDate extends Component {

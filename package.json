@@ -1,31 +1,30 @@
 {
 	"name": "@volenday/input-date",
-	"version": "0.1.16",
-	"private": false,
+	"version": "0.1.17",
+	"main": "dist/index.min.js",
+	"repository": "https://jeromemiranda@bitbucket.org/volenday-dev/input-date",
+	"author": "Volenday <developers@volenday.com>",
 	"license": "MIT",
-	"author": "Jerome Miranda <jerome.m.miranda@gmail.com>",
+	"private": false,
 	"scripts": {
 		"dev": "webpack --progress --watch",
 		"build": "webpack --progress -p",
 		"prepublishOnly": "webpack --progress -p"
 	},
-	"main": "dist/index.min.js",
 	"peerDependencies": {
-		"antd": "~3.20.5",
+		"antd": "~3.22.2",
 		"moment-timezone": "^0.5.26",
-		"rc-calendar": "~9.11.0",
 		"react": "~16.9.0",
 		"react-dom": "~16.9.0",
 		"validate.js": "^0.13.1"
 	},
 	"dependencies": {
-		"antd": "~3.20.5",
+		"antd": "~3.22.2",
 		"moment-timezone": "^0.5.26",
-		"rc-calendar": "~9.11.0",
 		"react": "~16.9.0",
 		"react-dom": "~16.9.0",
 		"validate.js": "^0.13.1",
-		"webpack": "~4.39.2"
+		"webpack": "~4.39.3"
 	},
 	"devDependencies": {
 		"@babel/core": "~7.5.5",
