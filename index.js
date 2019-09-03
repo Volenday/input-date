@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment-timezone';
 import validate from 'validate.js';
 import { Button, DatePicker, Form, Popover } from 'antd';
@@ -57,7 +57,7 @@ export default class InputDate extends Component {
 		};
 
 		const errors = validate({ [id]: value }, constraints);
-		return errors ? errors[id] : [];
+		return validate.isEmpty(value) && !required ? [] : errors ? errors[id] : [];
 	};
 
 	renderInput() {
@@ -128,16 +128,25 @@ export default class InputDate extends Component {
 		const formItemCommonProps = {
 			colon: false,
 			help: errors.length != 0 ? errors[0] : '',
-			label: withLabel ? label : false,
+			label,
 			required,
 			validateStatus: errors.length != 0 ? 'error' : 'success'
 		};
 
+		if (withLabel) {
+			return (
+				<Form.Item {...formItemCommonProps}>
+					{historyTrack && hasChange && action !== 'add' && this.renderPopover()}
+					{this.renderInput()}
+				</Form.Item>
+			);
+		}
+
 		return (
-			<Form.Item {...formItemCommonProps}>
+			<Fragment>
 				{historyTrack && hasChange && action !== 'add' && this.renderPopover()}
 				{this.renderInput()}
-			</Form.Item>
+			</Fragment>
 		);
 	}
 }
