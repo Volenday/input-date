@@ -82,7 +82,7 @@ export default class InputDate extends Component {
 				onOk={onOk}
 				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
 				showTime={withTime ? { format: 'hh:mm A' } : false}
-				style={styles}
+				style={{ width: '100%', ...styles }}
 				value={moment(value).isValid() ? moment(value) : null}
 			/>
 		);
