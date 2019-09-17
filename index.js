@@ -1,16 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment-timezone';
 import validate from 'validate.js';
-import { Button, DatePicker, Form, Popover } from 'antd';
+import { DatePicker, Form } from 'antd';
 
 import './styles.css';
 
 export default class InputDate extends Component {
 	state = {
 		errors: [],
-		format: 'MMMM DD, YYYY hh:mm A',
-		hasChange: false,
-		isPopoverVisible: false
+		format: 'MMMM DD, YYYY hh:mm A'
 	};
 
 	getFormat(withTime) {
@@ -19,7 +17,7 @@ export default class InputDate extends Component {
 	}
 
 	onChange = async value => {
-		const { action, id, onChange, onValidate, timezone = 'auto' } = this.props;
+		const { id, onChange, onValidate, timezone = 'auto' } = this.props;
 
 		value = value
 			? timezone === 'auto'
@@ -32,7 +30,7 @@ export default class InputDate extends Component {
 
 		onChange(id, value);
 		const errors = this.validate(value);
-		await this.setState({ errors, hasChange: action === 'add' ? false : true });
+		await this.setState({ errors });
 		if (onValidate) onValidate(id, errors);
 	};
 
@@ -88,42 +86,9 @@ export default class InputDate extends Component {
 		);
 	}
 
-	handlePopoverVisible = visible => {
-		this.setState({ isPopoverVisible: visible });
-	};
-
-	renderPopover = () => {
-		const { isPopoverVisible } = this.state;
-		const { id, label, required } = this.props;
-
-		return (
-			<Popover
-				content={
-					<div class="form-group">
-						<label for={id}>{required ? `*${label}` : label}</label>
-						{this.renderInput()}
-					</div>
-				}
-				trigger="click"
-				title="History Track"
-				visible={isPopoverVisible}
-				onVisibleChange={this.handlePopoverVisible}>
-				<span class="float-right">
-					<Button
-						type="link"
-						shape="circle-outline"
-						icon="warning"
-						size="small"
-						style={{ color: '#ffc107' }}
-					/>
-				</span>
-			</Popover>
-		);
-	};
-
 	render() {
-		const { errors, hasChange } = this.state;
-		const { action, label = '', required = false, withLabel = false, historyTrack = false } = this.props;
+		const { errors } = this.state;
+		const { label = '', required = false, withLabel = false } = this.props;
 
 		const formItemCommonProps = {
 			colon: false,
@@ -134,19 +99,9 @@ export default class InputDate extends Component {
 		};
 
 		if (withLabel) {
-			return (
-				<Form.Item {...formItemCommonProps}>
-					{historyTrack && hasChange && action !== 'add' && this.renderPopover()}
-					{this.renderInput()}
-				</Form.Item>
-			);
+			return <Form.Item {...formItemCommonProps}>{this.renderInput()}</Form.Item>;
 		}
 
-		return (
-			<Fragment>
-				{historyTrack && hasChange && action !== 'add' && this.renderPopover()}
-				{this.renderInput()}
-			</Fragment>
-		);
+		return <Fragment>{this.renderInput()}</Fragment>;
 	}
 }

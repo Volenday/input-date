@@ -1,6 +1,6 @@
 {
 	"name": "@volenday/input-date",
-	"version": "0.1.22",
+	"version": "0.1.23",
 	"main": "dist/index.min.js",
 	"repository": "https://jeromemiranda@bitbucket.org/volenday-dev/input-date",
 	"author": "Volenday <developers@volenday.com>",
@@ -12,19 +12,19 @@
 		"prepublishOnly": "webpack --progress -p"
 	},
 	"peerDependencies": {
-		"antd": "~3.23.0",
+		"antd": "~3.23.3",
 		"moment-timezone": "^0.5.26",
 		"react": "~16.9.0",
 		"react-dom": "~16.9.0",
 		"validate.js": "^0.13.1"
 	},
 	"dependencies": {
-		"antd": "~3.23.0",
+		"antd": "~3.23.3",
 		"moment-timezone": "^0.5.26",
 		"react": "~16.9.0",
 		"react-dom": "~16.9.0",
 		"validate.js": "^0.13.1",
-		"webpack": "~4.39.3"
+		"webpack": "~4.40.2"
 	},
 	"devDependencies": {
 		"@babel/core": "~7.6.0",
