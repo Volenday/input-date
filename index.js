@@ -16,7 +16,7 @@ export default class InputDate extends Component {
 		return withTime ? format : 'MMMM DD, YYYY';
 	}
 
-	onChange = async value => {
+	onChange = async (e, value) => {
 		const { id, onChange, onValidate, timezone = 'auto' } = this.props;
 
 		value = value
@@ -28,7 +28,7 @@ export default class InputDate extends Component {
 						.format()
 			: value;
 
-		onChange(id, value);
+		onChange(e, id, value);
 		const errors = this.validate(value);
 		await this.setState({ errors });
 		if (onValidate) onValidate(id, errors);
@@ -76,7 +76,7 @@ export default class InputDate extends Component {
 				disabled={disabled}
 				format={this.getFormat(withTime)}
 				name={id}
-				onChange={e => this.onChange(e)}
+				onChange={e => this.onChange({ target: { name: id, value: e } }, e)}
 				onOk={onOk}
 				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
 				showTime={withTime ? { format: 'hh:mm A' } : false}
