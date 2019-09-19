@@ -1,6 +1,6 @@
 {
 	"name": "@volenday/input-date",
-	"version": "0.1.25",
+	"version": "0.1.26",
 	"main": "dist/index.min.js",
 	"repository": "https://jeromemiranda@bitbucket.org/volenday-dev/input-date",
 	"author": "Volenday <developers@volenday.com>",
