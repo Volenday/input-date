@@ -56,8 +56,7 @@ module.exports = {
 		react: 'commonjs2 react',
 		antd: 'commonjs2 antd',
 		'moment-timezone': 'commonjs2 moment-timezone',
-		'react-dom': 'commonjs react-dom',
-		'validate.js': 'commonjs validate.js'
+		'react-dom': 'commonjs react-dom'
 	},
 	plugins: [
 		new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
