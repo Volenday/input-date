@@ -44,7 +44,6 @@ export default class InputDate extends Component {
 
 		return (
 			<DatePicker
-				allowClear
 				disabled={disabled}
 				format={this.getFormat(withTime)}
 				name={id}
