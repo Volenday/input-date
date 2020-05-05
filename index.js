@@ -20,7 +20,7 @@ export default ({
 	withLabel = false,
 	withTime = false
 }) => {
-	const [format] = useState('MMMM DD, YYYY hh:mm A');
+	const format = 'MMMM DD, YYYY hh:mm A';
 
 	const getFormat = withTime => (withTime ? format : 'MMMM DD, YYYY');
 
