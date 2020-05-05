@@ -1,79 +1,63 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment from 'moment-timezone';
 import { DatePicker, Form } from 'antd';
 
 import './styles.css';
 
-export default class InputDate extends Component {
-	state = {
-		format: 'MMMM DD, YYYY hh:mm A'
-	};
+export default ({
+	disabled = false,
+	error = null,
+	extra = null,
+	id,
+	label = '',
+	onChange,
+	onOk = null,
+	placeholder = '',
+	required = false,
+	styles = {},
+	timezone = 'auto',
+	value = '',
+	withLabel = false,
+	withTime = false
+}) => {
+	const [format] = useState('MMMM DD, YYYY hh:mm A');
 
-	getFormat(withTime) {
-		const { format } = this.state;
-		return withTime ? format : 'MMMM DD, YYYY';
-	}
+	const getFormat = withTime => (withTime ? format : 'MMMM DD, YYYY');
 
-	onChangeTimeout = null;
-	onChange = async value => {
-		const { id, onChange, timezone = 'auto' } = this.props;
-
-		value = value
-			? timezone === 'auto'
-				? value.format()
-				: value
-						.utc()
-						.tz(timezone)
-						.format()
-			: value;
-
+	const handleChange = async value => {
+		value = value ? (timezone === 'auto' ? value.format() : value.utc().tz(timezone).format()) : value;
 		onChange({ target: { name: id, value } }, id, value);
 	};
 
-	renderInput() {
-		const {
-			disabled = false,
-			id,
-			label = '',
-			placeholder = '',
-			value = '',
-			withTime = false,
-			styles = {},
-			onOk = null
-		} = this.props;
-
+	const renderInput = () => {
 		return (
 			<DatePicker
 				disabled={disabled}
-				format={this.getFormat(withTime)}
+				format={getFormat(withTime)}
 				name={id}
-				onChange={e => this.onChange(e)}
+				onChange={e => handleChange(e)}
 				onOk={onOk}
-				placeholder={`${placeholder || label || id} (${this.getFormat(withTime)})`}
+				placeholder={`${placeholder || label || id} (${getFormat(withTime)})`}
 				showTime={withTime ? { format: 'hh:mm A' } : false}
 				style={{ width: '100%', ...styles }}
 				value={moment(value).isValid() ? moment(value) : null}
 			/>
 		);
-	}
+	};
 
-	render() {
-		const { error = null, extra = null, label = '', required = false, withLabel = false } = this.props;
+	const formItemCommonProps = {
+		colon: false,
+		help: error ? error : '',
+		label: withLabel ? (
+			<>
+				<div style={{ float: 'right' }}>{extra}</div> <span class="label">{label}</span>
+			</>
+		) : (
+			false
+		),
+		required,
+		validateStatus: error ? 'error' : 'success'
+	};
 
-		const formItemCommonProps = {
-			colon: false,
-			help: error ? error : '',
-			label: withLabel ? (
-				<>
-					<div style={{ float: 'right' }}>{extra}</div> <span class="label">{label}</span>
-				</>
-			) : (
-				false
-			),
-			required,
-			validateStatus: error ? 'error' : 'success'
-		};
-
-		return <Form.Item {...formItemCommonProps}>{this.renderInput()}</Form.Item>;
-	}
-}
+	return <Form.Item {...formItemCommonProps}>{renderInput()}</Form.Item>;
+};
