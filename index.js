@@ -1,8 +1,10 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { DatePicker, Form } from 'antd';
+import { DatePicker, Form, Skeleton } from 'antd';
 
 import './styles.css';
+
+const browser = typeof process.browser !== 'undefined' ? process.browser : true;
 
 export default ({
 	disabled = false,
@@ -59,5 +61,9 @@ export default ({
 		validateStatus: error ? 'error' : 'success'
 	};
 
-	return <Form.Item {...formItemCommonProps}>{renderInput()}</Form.Item>;
+	return (
+		<Form.Item {...formItemCommonProps}>
+			{browser ? renderInput() : <Skeleton active paragraph={{ rows: 1, width: '100%' }} title={false} />}
+		</Form.Item>
+	);
 };
