@@ -22,12 +22,13 @@ export default ({
 	withLabel = false,
 	withTime = false
 }) => {
+	if (timezone !== 'auto') moment.tz.setDefault(timezone);
 	const format = 'MMMM DD, YYYY hh:mm A';
 
 	const getFormat = withTime => (withTime ? format : 'MMMM DD, YYYY');
 
 	const handleChange = async value => {
-		value = value ? (timezone === 'auto' ? value.format() : value.utc().tz(timezone).format()) : value;
+		value = value ? value.format() : value;
 		onChange({ target: { name: id, value } }, id, value);
 	};
 
@@ -37,7 +38,7 @@ export default ({
 				disabled={disabled}
 				format={getFormat(withTime)}
 				name={id}
-				onChange={e => handleChange(e)}
+				onChange={handleChange}
 				onOk={onOk}
 				placeholder={`${placeholder || label || id} (${getFormat(withTime)})`}
 				showTime={withTime ? { format: 'hh:mm A' } : false}
