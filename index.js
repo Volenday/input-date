@@ -20,7 +20,8 @@ export default ({
 	timezone = 'auto',
 	value = '',
 	withLabel = false,
-	withTime = false
+	withTime = false,
+	disabledDate = () => {}
 }) => {
 	if (timezone !== 'auto') moment.tz.setDefault(timezone);
 	const format = 'MMMM DD, YYYY hh:mm A';
@@ -36,6 +37,7 @@ export default ({
 		return (
 			<DatePicker
 				disabled={disabled}
+				disabledDate={disabledDate}
 				format={getFormat(withTime)}
 				name={id}
 				onChange={handleChange}
