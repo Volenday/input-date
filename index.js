@@ -8,6 +8,7 @@ const browser = typeof process.browser !== 'undefined' ? process.browser : true;
 
 export default ({
 	disabled = false,
+	disabledDate = () => {},
 	error = null,
 	extra = null,
 	id,
@@ -36,6 +37,7 @@ export default ({
 		return (
 			<DatePicker
 				disabled={disabled}
+				disabledDate={disabledDate}
 				format={getFormat(withTime)}
 				name={id}
 				onChange={handleChange}
