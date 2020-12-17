@@ -8,6 +8,7 @@ const browser = typeof process.browser !== 'undefined' ? process.browser : true;
 
 export default ({
 	disabled = false,
+	disabledDate = () => {},
 	error = null,
 	extra = null,
 	id,
@@ -20,8 +21,7 @@ export default ({
 	timezone = 'auto',
 	value = '',
 	withLabel = false,
-	withTime = false,
-	disabledDate = () => {}
+	withTime = false
 }) => {
 	if (timezone !== 'auto') moment.tz.setDefault(timezone);
 	const format = 'MMMM DD, YYYY hh:mm A';
