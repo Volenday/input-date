@@ -2,9 +2,9 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { DatePicker, Form, Skeleton } from 'antd';
 
-import './styles.css';
+const browser = typeof window !== 'undefined' ? true : false;
 
-const browser = typeof process.browser !== 'undefined' ? process.browser : true;
+if (browser) require('./styles.css');
 
 export default ({
 	disabled = false,
