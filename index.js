@@ -24,10 +24,9 @@ export default ({
 	withLabel = false,
 	withTime = false
 }) => {
-	if (timezone !== 'auto') moment.tz.setDefault(timezone);
-	if (timezone === 'off') withTime = false;
-	const format = 'MMMM DD, YYYY hh:mm A';
+	if (timezone !== 'auto' || timezone !== 'off') moment.tz.setDefault(timezone);
 
+	const format = 'MMMM DD, YYYY hh:mm A';
 	const getFormat = withTime => (withTime ? format : 'MMMM DD, YYYY');
 
 	const handleChange = async value => {
