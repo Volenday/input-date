@@ -7,6 +7,7 @@ const browser = typeof window !== 'undefined' ? true : false;
 if (browser) require('./styles.css');
 
 export default ({
+	className = '',
 	disabled = false,
 	disabledDate = () => {},
 	error = null,
@@ -36,6 +37,7 @@ export default ({
 	const renderInput = () => {
 		return (
 			<DatePicker
+				className={className}
 				disabled={disabled}
 				disabledDate={disabledDate}
 				format={getFormat(withTime)}
