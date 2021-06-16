@@ -24,13 +24,13 @@ export default ({
 	withLabel = false,
 	withTime = false
 }) => {
-	if (timezone !== 'auto') moment.tz.setDefault(timezone);
-	const format = 'MMMM DD, YYYY hh:mm A';
+	if (timezone !== 'auto' || timezone !== 'off') moment.tz.setDefault(timezone);
 
+	const format = 'MMMM DD, YYYY hh:mm A';
 	const getFormat = withTime => (withTime ? format : 'MMMM DD, YYYY');
 
 	const handleChange = async value => {
-		value = value ? value.format() : value;
+		value = value ? (timezone === 'off' ? moment(value).format('YYYY-MM-DD') : value.format()) : value;
 		onChange({ target: { name: id, value } }, id, value);
 	};
 
