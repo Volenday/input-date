@@ -13,6 +13,7 @@ export default ({
 	error = null,
 	extra = null,
 	id,
+	inlineError = true,
 	label = '',
 	onChange,
 	onOk = null,
@@ -52,9 +53,8 @@ export default ({
 		);
 	};
 
-	const formItemCommonProps = {
+	let formItemCommonProps = {
 		colon: false,
-		help: error ? error : '',
 		label: withLabel ? (
 			<>
 				<div style={{ float: 'right' }}>{extra}</div> <span class="label">{label}</span>
@@ -65,6 +65,7 @@ export default ({
 		required,
 		validateStatus: error ? 'error' : 'success'
 	};
+	if (inlineError) formItemCommonProps = { ...formItemCommonProps, help: error ? error : '' };
 
 	return (
 		<Form.Item {...formItemCommonProps}>
