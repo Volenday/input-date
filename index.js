@@ -37,19 +37,22 @@ export default ({
 
 	const renderInput = () => {
 		return (
-			<DatePicker
-				className={className}
-				disabled={disabled}
-				disabledDate={disabledDate}
-				format={getFormat(withTime)}
-				name={id}
-				onChange={handleChange}
-				onOk={onOk}
-				placeholder={`${placeholder || label || id} (${getFormat(withTime)})`}
-				showTime={withTime ? { format: 'hh:mm A' } : false}
-				style={{ width: '100%', ...styles }}
-				value={moment(value).isValid() ? moment(value) : null}
-			/>
+			<div id="datePickerContainer">
+				<DatePicker
+					getPopupContainer={trigger => trigger?.parentNode || document.body}
+					className={className}
+					disabled={disabled}
+					disabledDate={disabledDate}
+					format={getFormat(withTime)}
+					name={id}
+					onChange={handleChange}
+					onOk={onOk}
+					placeholder={`${placeholder || label || id} (${getFormat(withTime)})`}
+					showTime={withTime ? { format: 'hh:mm A' } : false}
+					style={{ width: '100%', ...styles }}
+					value={moment(value).isValid() ? moment(value) : null}
+				/>
+			</div>
 		);
 	};
 
